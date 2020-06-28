@@ -2,7 +2,8 @@
 using namespace std;
 
 int binarySearch(int *A, int target,int left,int right){
-    int mid = (left+right)/2;
+    if(left>right) return -1;
+    int mid = left + (right-left)/2;
     if(A[mid]==target) return mid;
     else if(A[mid]>target) return binarySearch(A,target,left,mid-1);
     else return binarySearch(A,target,mid+1,right);
