@@ -13,3 +13,4 @@ int main(){
     int result = binarySearch(arr,72,0,10);
     cout<<result;
 }
+ 
