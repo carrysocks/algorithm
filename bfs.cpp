@@ -8,15 +8,12 @@ class Graph{
 public:
     int size;
     vector<vector<int>> adj;
-    vector<bool> visited;
     queue<int> q;
     vector<int> order;
     
     Graph(int n){
         size=n;
         adj.resize(n);
-        visited.resize(n);
-        order.resize(n);
     }
     
     void addEdge(int u,int v){
@@ -29,16 +26,16 @@ public:
             sort(adj[i].begin(),adj[i].end());
     }
     
-    vector<int> bfs(int start){
+   vector<int> bfs(int start){
         
-        visited = vector<bool>(size,false);
+        vector<bool> visited(adj.size(),false);
         visited[start]=true;
         q.push(start);
-        order.push_back(start);
         
         while(!q.empty()){
             int here = q.front();
             q.pop();
+            order.push_back(here);
             
             for(int i=0;i<adj[here].size();i++){
                 int there=adj[here][i];
@@ -48,13 +45,14 @@ public:
                 }
             }
         }
+        
+        return order;
     }    
 };
 
 
 int main(){
     Graph G(9);
-    //graph insert
     G.addEdge(0,1);
     G.addEdge(0,2);
     G.addEdge(1,3);
@@ -66,5 +64,7 @@ int main(){
     G.addEdge(6,8);
     G.addEdge(6,7);
     G.sortList();
-    G.bfs(0);
+    vector<int> v = G.bfs(0);
+    for(auto e:v)
+        cout<<e<<" ";
 }
